@@ -1,6 +1,6 @@
 
-get_AMdf <- function(x) {
-  return(x[x$PAM == "AM",])
+get_AMdf <- function(df) {
+  return(df[df$PAM == "AM",])
 }
 
 
@@ -20,7 +20,6 @@ get_OhneWerbungdf <- function(df) {
   return(df[df$Werbung == 0,])
 }
 
-
 Dailydf <-   df %>%
   group_by(Datum) %>%
   summarise(
@@ -29,34 +28,37 @@ Dailydf <-   df %>%
     WerbungMin = min(Werbung),
     WeekNr = max(WeekNr)
   )
-head(Dailydf, 20)
 
+#get_Weeklydf <- function(df, WeekNr, Abverkauf, Werbung) {
+get_Weeklydf <- function(df) {
+  Weeklydf <-   df %>%
+    group_by(WeekNr) %>%
+    summarise(
+      Abverkauf = sum(Abverkauf),
+      WerbungMax = max(Werbung),
+      WerbungMin = min(Werbung)
+    )
+  return(Weeklydf)
+}
 
-Weeklydf <-   df %>%
-  group_by(WeekNr) %>%
-  summarise(
-    Abverkauf = sum(Abverkauf),
-    WerbungMax = max(Werbung),
-    WerbungMin = min(Werbung)
-  )
-head(Weeklydf, 20)
-Weeklydf %>% data.frame()
-df %>% head()
-df %>% tail()
+#Monthlydf <- function(df, MonthNr, Abverkauf, Werbung) {
+get_Monthlydf <- function(df) {
+  Monthlydf <-   df %>%
+    group_by(MonthNr) %>%
+    summarise(
+      Abverkauf = sum(Abverkauf),
+      WerbungMax = max(Werbung),
+      WerbungMin = min(Werbung)
+    )
+  return(Monthlydf)
+}
 
+myTest <- function(df){
+  print(df %>% head())
+  print(df %>% tail())
+}
 
-Monthlydf <-   df %>%
-  group_by(MonthNr) %>%
-  summarise(
-    Abverkauf = sum(Abverkauf),
-    WerbungMax = max(Werbung),
-    WerbungMin = min(Werbung)
-  )
-head(Weeklydf, 20)
-df %>% head()
-df %>% tail()
-
-
+myTest(MyDF)
 ####################################
 #Almost Original code from Internet:
 df %>% head()
