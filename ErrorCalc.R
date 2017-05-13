@@ -4,7 +4,6 @@ dfErros <- function(df) {
   #MSD: Mean squared deviation
   df$SD <- df$Deviation ^ 2
   
-  
   #MAD: Mean absolute deviation
   df$AD <- abs(df$Deviation)
   
