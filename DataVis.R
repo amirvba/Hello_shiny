@@ -1,3 +1,5 @@
+rm(df1)
+
 df1 <- MyDF %>% 
   group_by(Datum) %>% 
   summarise(Abverkauf = sum(Abverkauf),Werbung = sum(Werbung))
