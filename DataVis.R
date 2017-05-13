@@ -8,7 +8,6 @@ qplot(df1$Datum,df1$Abverkauf)+geom_line() +ylim(c(0,250))
 p1 <- ggplot(MyDF, aes(x=MyDF$Datum, y=MyDF$Abverkauf, color='red'))+geom_line()
 p2 <- ggplot(MyDF, aes(x=MyDF$Datum, y=MyDF$Werbung))+geom_line()
 
-
 Ami <- MyDF[1:20,]
 
 qplot(Ami$Datum,Ami$Abverkauf)#+geom_line()
