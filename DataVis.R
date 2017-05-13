@@ -29,4 +29,4 @@ sum(MyDF$Abverkauf[1:19])
 df1 %>% tail()
 
 hist(MyDF$Abverkauf)
-#aggregate(Datum~Abverkauf,df,sum())%>% head()
+#aggregate(Datum~Abverkauf,df,sum())%>% head(
