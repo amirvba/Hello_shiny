@@ -1,13 +1,27 @@
-AMdf <- MyDF[MyDF$PAM == "AM",]
-PMdf <- MyDF[MyDF$PAM == "PM",]
 
-Werbungdf <- MyDF[MyDF$Werbung == 1,]
-OhneWerbungdf <- MyDF[MyDF$Werbung == 0,]
-
+get_AMdf <- function(x) {
+  return(x[x$PAM == "AM",])
+}
 
 
+#PMdf <- df[df$PAM == "PM",]
+get_PMdf <- function(df) {
+  return(df[df$PAM == "PM",])
+}
 
-Dailydf <-   MyDF %>%
+
+#Werbungdf <- df[df$Werbung == 1,]
+get_Werbungdf <- function(df) {
+  return(df[df$Werbung == 1,])
+}
+
+#OhneWerbungdf <- df[df$Werbung == 0,]
+get_OhneWerbungdf <- function(df) {
+  return(df[df$Werbung == 0,])
+}
+
+
+Dailydf <-   df %>%
   group_by(Datum) %>%
   summarise(
     Abverkauf = sum(Abverkauf),
@@ -18,7 +32,7 @@ Dailydf <-   MyDF %>%
 head(Dailydf, 20)
 
 
-Weeklydf <-   MyDF %>%
+Weeklydf <-   df %>%
   group_by(WeekNr) %>%
   summarise(
     Abverkauf = sum(Abverkauf),
@@ -27,11 +41,11 @@ Weeklydf <-   MyDF %>%
   )
 head(Weeklydf, 20)
 Weeklydf %>% data.frame()
-MyDF %>% head()
-MyDF %>% tail()
+df %>% head()
+df %>% tail()
 
 
-Monthlydf <-   MyDF %>%
+Monthlydf <-   df %>%
   group_by(MonthNr) %>%
   summarise(
     Abverkauf = sum(Abverkauf),
@@ -39,19 +53,19 @@ Monthlydf <-   MyDF %>%
     WerbungMin = min(Werbung)
   )
 head(Weeklydf, 20)
-MyDF %>% head()
-MyDF %>% tail()
+df %>% head()
+df %>% tail()
 
 
 ####################################
 #Almost Original code from Internet:
-MyDF %>% head()
+df %>% head()
 lubridate::week(ymd("2014-03-16", "2014-03-17", "2014-03-18", '2014-01-01'))
-MyDF$Datum[1]
+df$Datum[1]
 
-ubridate::week(ymd(MyDF$Datum[100]))
-week(ymd(MyDF$Datum %>% tail()))
+ubridate::week(ymd(df$Datum[100]))
+week(ymd(df$Datum %>% tail()))
 
-MyDF$Datum %>% tail()
-#amir = MyDF$Datum %>% tail()
+df$Datum %>% tail()
+#amir = df$Datum %>% tail()
 #lubridate::month(ymd(tail("2000-03-31")))
