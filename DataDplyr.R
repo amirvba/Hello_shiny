@@ -11,11 +11,24 @@ ggplot(Weeklydf, aes(Weeklydf$WeekNr))+
   geom_line(aes(y=Weeklydf$Abverkauf))+
   geom_line(aes(y=200+50*Weeklydf$WerbungMax,color = 'red'))
 
-df <- MyDF
-ggplot(df, aes(df[1]))+ 
-  geom_line(aes(y=df[2]))#+
-  geom_line(aes(y=200+50*df[3],color = 'red'))
+df <- MyDF %>% get__PMdf() %>% get__Weeklydf()
+myplot(df,names(df)[1],"Abverkauf")
+
+df <- MyDF %>% get__AMdf() %>% get__Weeklydf()
+myplot(df,names(df)[1],"Abverkauf")
+
+myplot = function(df, x_string, y_string) {
+  ggplot(df, aes_string(x = x_string, y = y_string)) + geom_line()
+}
+var(df$Abverkauf)
+var(MyDF$Abverkauf)
 
 
-qplot(df[1],df$Datum)
+  
+  qplot(df[1],df$Datum)
 head(MyDF[2])
+names(MyDF)[1]
+
+
+DayDF <- get_Dailydf(MyDF)
+DayDF %>% dim()

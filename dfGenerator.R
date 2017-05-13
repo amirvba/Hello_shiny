@@ -1,36 +1,45 @@
+source('C:/Users/amir/Desktop/Seminar, Zeitreihen/testRepository/ReadData.R')
 
-get_AMdf <- function(df) {
+
+#ggplot(MyDF, aes(x=MyDF$Datum))+ 
+#  geom_line(aes_string(x = x_string)+
+#  geom_line(aes(aes_string(x = x_string,color = 'red',size="2")))
+
+
+get__AMdf <- function(df) {
   return(df[df$PAM == "AM",])
 }
 
-
 #PMdf <- df[df$PAM == "PM",]
-get_PMdf <- function(df) {
+get__PMdf <- function(df) {
   return(df[df$PAM == "PM",])
 }
 
-
 #Werbungdf <- df[df$Werbung == 1,]
-get_Werbungdf <- function(df) {
+get__Werbungdf <- function(df) {
   return(df[df$Werbung == 1,])
 }
 
 #OhneWerbungdf <- df[df$Werbung == 0,]
-get_OhneWerbungdf <- function(df) {
+get__OhneWerbungdf <- function(df) {
   return(df[df$Werbung == 0,])
 }
 
-Dailydf <-   df %>%
-  group_by(Datum) %>%
-  summarise(
-    Abverkauf = sum(Abverkauf),
-    WerbungMax = max(Werbung),
-    WerbungMin = min(Werbung),
-    WeekNr = max(WeekNr)
-  )
+#Dailydf <- function(df, Datum, Abverkauf, Werbung, WeekNr) {
+get__Dailydf <- function(df) {
+  Dailydf <-   df %>%
+    group_by(Datum) %>%
+    summarise(
+      Abverkauf = sum(Abverkauf),
+      WerbungMax = max(Werbung),
+      WerbungMin = min(Werbung),
+      WeekNr = max(WeekNr)
+    )
+  return(Dailydf)
+}
 
 #get_Weeklydf <- function(df, WeekNr, Abverkauf, Werbung) {
-get_Weeklydf <- function(df) {
+get__Weeklydf <- function(df) {
   Weeklydf <-   df %>%
     group_by(WeekNr) %>%
     summarise(
@@ -42,7 +51,7 @@ get_Weeklydf <- function(df) {
 }
 
 #Monthlydf <- function(df, MonthNr, Abverkauf, Werbung) {
-get_Monthlydf <- function(df) {
+get__Monthlydf <- function(df) {
   Monthlydf <-   df %>%
     group_by(MonthNr) %>%
     summarise(
@@ -58,16 +67,6 @@ myTest <- function(df){
   print(df %>% tail())
 }
 
-myTest(MyDF)
-####################################
+
 #Almost Original code from Internet:
-df %>% head()
 lubridate::week(ymd("2014-03-16", "2014-03-17", "2014-03-18", '2014-01-01'))
-df$Datum[1]
-
-ubridate::week(ymd(df$Datum[100]))
-week(ymd(df$Datum %>% tail()))
-
-df$Datum %>% tail()
-#amir = df$Datum %>% tail()
-#lubridate::month(ymd(tail("2000-03-31")))
