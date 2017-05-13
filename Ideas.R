@@ -5,4 +5,5 @@
 # Missing Values
 # Outlier detection
 # To check if i have done the Pivot right,
-# I have used WerbungMax and WerbungMin to check if both have the same output!
+# I have used WerbungMax and WerbungMin to check 
+# if both have the same output!

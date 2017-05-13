@@ -23,9 +23,12 @@ myplot = function(df, x_string, y_string) {
 var(df$Abverkauf)
 var(MyDF$Abverkauf)
 
+Mylm  <-lm(df$Abverkauf~df$WeekNr+df$WerbungMax)
+summary(Mylm)
+plot(Mylm)  
+plot(predict(Mylm,df = df$WeekNr))
 
-  
-  qplot(df[1],df$Datum)
+qplot(df[1],df$Datum)
 head(MyDF[2])
 names(MyDF)[1]
 
