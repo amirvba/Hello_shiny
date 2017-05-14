@@ -1,5 +1,3 @@
-#rm(list = ls())
-
 library(smooth)
 library(ggplot2)
 library(forecast)
@@ -12,4 +10,3 @@ library(lubridate)
 #library(reshape)
 #library(gridExtra)
 #library(tseries)
-

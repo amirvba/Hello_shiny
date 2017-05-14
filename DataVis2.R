@@ -1,5 +1,6 @@
 n <- 7
-df <- MyDF %>% get__PMdf() %>% get__Weeklydf()
+df <- Cleandf %>% get__PMdf() %>% get__Weeklydf()
+df <- Cleandf %>%  get__Dailydf()
 
 mylm <- lm(df$Abverkauf~ df$WeekNr+df$WerbungMax)
 df$FittedReg <- mylm$fitted.values
@@ -11,7 +12,7 @@ FittedMA <- c(rep(NA,n)  ,head(rollmean(df$Abverkauf, n),-1))
 df$FittedMA <- FittedMA
 df %>% head()
 
-qplot(df$WeekNr, df$FittedMA)+geom_line()
+#qplot(df$WeekNr, df$FittedMA)+geom_line()
 qplot(df$WeekNr, df$Abverkauf)+geom_line()#,type="l")
 
 ggplot(df, aes(df$Datum))+ 
