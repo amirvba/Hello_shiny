@@ -12,5 +12,9 @@ MyDF$MonthNr <- month(ymd(MyDF$Datum))
 
 print(MyDF %>% str())
 print(MyDF %>% head())
+
+qplot(Datum, Abverkauf ,data = MyDF)#+geom_line()
+#ggplot(MyDF,aes(Datum,Abverkauf))+geom_line()
+
 #writeLines("Tail:")
 #print(MyDF %>% tail())

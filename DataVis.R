@@ -1,5 +1,3 @@
-rm(df1)
-
 df1 <- MyDF %>% 
   group_by(Datum) %>% 
   summarise(Abverkauf = sum(Abverkauf),Werbung = sum(Werbung))
@@ -29,3 +27,23 @@ df1 %>% tail()
 
 hist(MyDF$Abverkauf)
 #aggregate(Datum~Abverkauf,df,sum())%>% head(
+
+qplot(AMdf$RecNum,AMdf$Abverkauf)+geom_line()
+var(AMdf$Abverkauf)
+
+qplot(PMdf$RecNum,PMdf$Abverkauf)+geom_line()
+var(PMdf$Abverkauf)
+
+qplot(Weeklydf$WeekNr,Weeklydf$Abverkauf)+geom_line()
+
+
+ggplot(Weeklydf, aes(Weeklydf$WeekNr))+ 
+  geom_line(aes(y=Weeklydf$Abverkauf))+
+  geom_line(aes(y=200+50*Weeklydf$WerbungMax,color = 'red'))
+
+
+myplot = function(df, x_string, y_string) {
+  ggplot(df, aes_string(x = x_string, y = y_string)) + geom_line()
+}
+var(df$Abverkauf)
+var(MyDF$Abverkauf)

@@ -1,5 +1,5 @@
-source('C:/Users/amir/Desktop/Seminar, Zeitreihen/testRepository/ReadData.R')
-
+source(paste('C:/Users/amir/Desktop/Seminar,',
+      ' Zeitreihen/testRepository/ReadData.R',sep=""))
 
 #ggplot(MyDF, aes(x=MyDF$Datum))+ 
 #  geom_line(aes_string(x = x_string)+
@@ -69,4 +69,5 @@ myTest <- function(df){
 
 
 #Almost Original code from Internet:
-lubridate::week(ymd("2014-03-16", "2014-03-17", "2014-03-18", '2014-01-01'))
+week(ymd("2014-03-16", "2014-03-17","2014-03-18", '2014-01-01'))
+
