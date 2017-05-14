@@ -23,3 +23,8 @@ ggplot(df, aes(df$WeekNr))+
   geom_line(aes(y=df$Abverkauf))+
   geom_line(aes(y=df$FittedMA, color = 'red'))+
   geom_line(aes(y=df$FittedReg, color = 'blue'))
+
+ggplot(df, aes(df$Datum))+ 
+  geom_line(aes(y=df$Abverkauf))+
+  geom_line(aes(y=df$FittedSES,color = 'red'))
+

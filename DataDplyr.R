@@ -1,4 +1,4 @@
-df <- MyDF %>% get__PMdf() %>% get__Dailydf()
+df <- Cleandf %>% get__PMdf() %>% get__Dailydf()
 myplot(df,names(df)[1],"Abverkauf")
 
 df <- MyDF %>% get__AMdf() %>% get__Weeklydf()

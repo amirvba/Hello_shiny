@@ -1,6 +1,3 @@
-source(paste('C:/Users/amir/Desktop/Seminar,',
-      ' Zeitreihen/testRepository/ReadData.R',sep=""))
-
 #ggplot(MyDF, aes(x=MyDF$Datum))+ 
 #  geom_line(aes_string(x = x_string)+
 #  geom_line(aes(aes_string(x = x_string,color = 'red',size="2")))
