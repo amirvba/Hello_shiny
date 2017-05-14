@@ -19,4 +19,4 @@
 #3. Correct MyMovingAverage!
 #4. Learn how to upload code to the GitHub:)
 #5. Exponential smoothing
-#6. 
+#6. Temporarily I will delete NA.
