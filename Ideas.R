@@ -15,7 +15,7 @@
 #6. Temporarily I will delete NA.
 
 
-# DAta Cleaning:
+# Data Cleaning:
 #  NAs
 #  Outliers
 
@@ -29,7 +29,10 @@
 
 # Fragen an Tobias:
 # Do I have to implement the rollmean by myself?
+# Gibt es besondere Kriterien bei der Entscheidung übe Außreiser?!
 # 
+
+
 ?hw
 
 ?ses

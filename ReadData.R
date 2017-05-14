@@ -12,7 +12,7 @@ MyDF$Datum <- as.Date(MyDF$Datum,format = "%d.%m.%Y")
 MyDF$WeekNr <- week(ymd(MyDF$Datum))
 MyDF$MonthNr <- month(ymd(MyDF$Datum))
 
-
+#MyDF[MyDF$Abverkauf==NA,] %>% count()
 # Original Plot
 qplot(Datum, Abverkauf ,data = MyDF)#+geom_line()
 
