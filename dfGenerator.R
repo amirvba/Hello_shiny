@@ -30,7 +30,8 @@ get__Dailydf <- function(df) {
       Abverkauf = sum(Abverkauf),
       WerbungMax = max(Werbung),
       WerbungMin = min(Werbung),
-      WeekNr = max(WeekNr)
+      WeekNr = max(WeekNr),
+      Day = DayNr
     )
   return(Dailydf)
 }
@@ -67,4 +68,3 @@ myTest <- function(df){
 
 #Almost Original code from Internet:
 week(ymd("2014-03-16", "2014-03-17","2014-03-18", '2014-01-01'))
-

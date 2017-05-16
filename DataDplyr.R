@@ -1,19 +1,15 @@
-df <- Cleandf %>% get__PMdf() %>% get__Dailydf()
+df <- MyDF %>% get__PMdf() %>% get__Dailydf()
 myplot(df,names(df)[1],"Abverkauf")
 
+df %>% str()
 df <- MyDF %>% get__AMdf() %>% get__Weeklydf()
 myplot(df,names(df)[1],"Abverkauf")
 df %>% head()
 
-Mylm  <-lm(df$Abverkauf~df$WeekNr+df$WerbungMax)
+Mylm  <-lm(df$Abverkauf~df$WeekNr+df$WerbungMax+df$D)
 
 plot(Mylm)  
 plot(predict(Mylm,df = df$WeekNr))
 
 mylm <- tslm(formula = Abverkauf~ WeekNr , data = ts(df,frequency = 4))
 plot(mylm)
-
-
-
-
-

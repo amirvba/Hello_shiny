@@ -29,3 +29,12 @@ ggplot(df, aes(df$Datum))+
   geom_line(aes(y=df$Abverkauf))+
   geom_line(aes(y=df$FittedSES,color = 'red'))
 
+
+#dff <- MyDF %>% get__Weeklydf()
+
+ggplot(df, aes(df$WeekNr))+ 
+  geom_line(aes(y=df$Abverkauf))#+
+#geom_line(aes(y=dff$Abverkauf,color = 'red'))
+
+
+ggplot(MyDF, aes(MyDF$Abverkauf))+ geom_boxplot()#+ylim(c(0,100))

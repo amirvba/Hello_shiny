@@ -5,6 +5,7 @@ library(magrittr)
 library(zoo)
 library(dplyr)
 library(lubridate)
+library(tseries)
 
 #library(hflights)
 #library(reshape)

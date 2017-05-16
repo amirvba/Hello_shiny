@@ -1,8 +1,5 @@
-# Use features like AM and PM
 # What about weekly data
-# How does seem like if I delete non usefull ouliers?
 # Use smaller names for directories!
-# To check if I have done the Pivot right,
 # I have used WerbungMax and WerbungMin to check 
 # if both have the same output!
 # What precision is asked? Do I need to order each day or on a 
@@ -26,13 +23,29 @@
 # Regression
 # ARIMA?!
 # Show the distribution of Data in each week using box plot
+# ma(elecsales, order=5) <- what is this?
+# Can I use it to control my calculations?!
 
 # Fragen an Tobias:
 # Do I have to implement the rollmean by myself?
 # Gibt es besondere Kriterien bei der Entscheidung übe Außreiser?!
-# 
+# Ist es wichtig, dass eine Prognose für jeden Tag erzeuge? 
+#Oder reicht es, wenn ich nur auf wöchentliche Basis prognotiziere?
 
 
 ?hw
 
 ?ses
+
+apply(MyDF$Abverkauf,1,function(x) any(is.na(x)))
+y <- c(1,2,NA)
+sum(y)
+y<-is.na(MyDF$PAM)
+y[y==TRUE]
+
+
+# Jome 5 shanbe
+# Trend
+# Winter
+# Dade ghabli!
+# 

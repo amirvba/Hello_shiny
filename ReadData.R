@@ -11,17 +11,16 @@ MyDF <- MyDF[c(-6)]
 MyDF$Datum <- as.Date(MyDF$Datum,format = "%d.%m.%Y")
 MyDF$WeekNr <- week(ymd(MyDF$Datum))
 MyDF$MonthNr <- month(ymd(MyDF$Datum))
+MyDF$DayNr <- weekdays(as.Date(MyDF$Datum)) %>% as.factor()
 
 #MyDF[MyDF$Abverkauf==NA,] %>% count()
 # Original Plot
-qplot(Datum, Abverkauf ,data = MyDF)#+geom_line()
-
-
-df <- MyDF %>% get__Weeklydf()
+qplot(Datum, Abverkauf ,data = MyDF)
 
 # Differentation between first and last week!
 MyDF %>% head()
 MyDF %>% tail()
+MyDF %>% str()
 MyDF[MyDF$WeekNr==22,] %>% count()
 
 MyDF$WeekNr[MyDF$Datum=="1999-06-01"] = 0
@@ -44,11 +43,34 @@ hist(MyDF$Abverkauf)
 
 
 
-#dff <- MyDF %>% get__Weeklydf()
+qplot(MyDF$Datum, MyDF$Abverkauf)
 
-ggplot(df, aes(df$WeekNr))+ 
-  geom_line(aes(y=df$Abverkauf))+
-  geom_line(aes(y=dff$Abverkauf,color = 'red'))
+ggplot(MyDF,aes(x=Datum,y=Abverkauf,color=MyDF$Abverkauf))+
+geom_line()#  geom_point()
 
 
-ggplot(MyDF, aes(MyDF$Abverkauf))+ geom_boxplot()#+ylim(c(0,100))
+df <- Cleandf %>% get__Weeklydf()
+df[df$Abverkauf==12,] %>% count()
+hist(df$Abverkauf)
+
+df <- Cleandf %>% get__AMdf() %>% get__Weeklydf()
+
+df <- Cleandf %>% get__PMdf() %>% get__Dailydf()
+#df$Abverkauf <- df$Abverkauf %>% log()
+
+qplot(df$Datum,df$Abverkauf)+xlab("Datum") + 
+  ylab("Abverkauf")+geom_line()
+
+
+hist(df$Abverkauf)
+qplot(Cleandf$WeekNr,Cleandf$Abverkauf)+xlab("Datum") + 
+  ylab("Abverkauf")
+tsclean(MyDF$Abverkauf)
+
+
+Myts <- ts(df$Abverkauf,frequency = 31)
+Myts
+Myts %>% decompose()
+Myts %>% stl()
+Myts %>% adf.test()
+
