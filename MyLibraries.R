@@ -6,6 +6,7 @@ library(zoo)
 library(dplyr)
 library(lubridate)
 library(tseries)
+library(shiny)
 
 #library(hflights)
 #library(reshape)
