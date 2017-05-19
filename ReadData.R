@@ -1,17 +1,27 @@
 rm(list = ls())
-source('C:/Users/amir/Desktop/Seminar, Zeitreihen/testRepository/MyLibraries.R')
-source('C:/Users/amir/Desktop/Seminar, Zeitreihen/testRepository/dfGenerator.R')
+source('~/Zeitreihe/MyLibraries.R')
+source('~/Zeitreihe/dfGenerator.R')
 cat("\014")
-source('C:/Users/amir/Desktop/Seminar, Zeitreihen/testRepository/MyLibraries.R')
+source('~/Zeitreihe/MyLibraries.R')
 
-MyPath <-"C:\\Users\\amir\\Desktop\\Seminar, Zeitreihen\\Daten_amir.csv"
+MyPath <- "/home/amir/Desktop/Daten_amir.csv"
 
 MyDF <-  read.csv(MyPath, header = TRUE, sep = c(";"," "))
-MyDF <- MyDF[c(-6)]
-MyDF$Datum <- as.Date(MyDF$Datum,format = "%d.%m.%Y")
+MyDF <- MyDF[c(-1,-2)]
+MyDF %>% head()
+MyDF$Datum <- as.Date(MyDF$Datum,format = "%d/%m/%Y")
+MyDF %>% head()
+qplot(Abverkauf ,data = MyDF)
+
+
+
+MyDF$PAM <- MyDF$Uhrzeit %>% str_sub( start= -2)
 MyDF$WeekNr <- week(ymd(MyDF$Datum))
 MyDF$MonthNr <- month(ymd(MyDF$Datum))
 MyDF$DayNr <- weekdays(as.Date(MyDF$Datum)) %>% as.factor()
+
+MyDF %>% head()
+MyDF %>% str()
 
 #MyDF[MyDF$Abverkauf==NA,] %>% count()
 # Original Plot
@@ -74,3 +84,6 @@ Myts %>% decompose()
 Myts %>% stl()
 Myts %>% adf.test()
 
+MyDF$Uhrzeit[1] %>% class()
+MyDF$Uhrzeit %>% str_sub( start= -2)
+MyDF

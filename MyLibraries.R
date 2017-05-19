@@ -7,6 +7,7 @@ library(dplyr)
 library(lubridate)
 library(tseries)
 library(shiny)
+library(stringr)
 
 #library(hflights)
 #library(reshape)
