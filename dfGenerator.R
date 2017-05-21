@@ -99,3 +99,14 @@ myDataChanger <- function(df,type1,type2,type3){
     myWerbungfunction(type2) %>% 
     myDayfunction(type3))
 }
+
+
+myCleaner <- function(df, type){
+#in tabe ts iekam moshkel dare! kolan faghat ie dune sotun pas mide! che
+  # konam?!
+  df <- switch(type,
+               None = df,
+               Custome = df[df$Abverkauf<n,],
+               ts_clean = ts(df$Abverkauf,frequency = 30) %>% tsclean(replace.missing = TRUE))
+  return(df)
+}

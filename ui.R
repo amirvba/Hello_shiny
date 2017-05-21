@@ -13,19 +13,20 @@ shinyUI(fluidPage(
                    choices =  c("Both", "Within", "Without"),
                    selected = "Both"),
       radioButtons("DataCleaning","Data Preprocessing",
-                   choices =  c("NoCleaning", "CustomCleaing", "tsClean"),
+                   choices =  c("None", "Custome", "ts_clean"),
                    selected = "NoCleaning")),
   
-      radioButtons("Forcasts","Forcasting Methods",
-                 choices =  c("Moving Average", "ExponentielesGlaetten", "Regression"),
-                 selected = "NoCleaning")),
+    
+      #radioButtons("Forcasts","Forcasting Methods",
+      #           choices =  c("Moving Average", "ExponentielesGlaetten", "Regression"),
+      #           selected = "NoCleaning")),
   
     mainPanel(tabsetPanel(
       id = 'dataset',
       tabPanel("Plot", plotOutput("plot")),
       tabPanel('Data', dataTableOutput('table'))
       
-    ))))
+    )))))
 
 # Moving Average
 # Explonentieles Glätten

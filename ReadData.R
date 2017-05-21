@@ -12,10 +12,12 @@ MyDF <-  read.csv(MyPath, header = TRUE, sep = c(";"," "))
 MyDF <- MyDF[c(-1,-2)]
 MyDF %>% head()
 MyDF <- MyDF[,c(1,4,3,2)]
-MyDF$Datum <- as.Date(MyDF$Datum,format = "%d/%m/%Y")
+qplot(Datum, Abverkauf ,data = MyDF)
+MyDF$Datum <- as.Date(MyDF$Datum,format = "%m/%d/%Y")
 MyDF %>% head()
 
 
+qplot(Datum, Abverkauf ,data = MyDF)
 ##qplot(Abverkauf ,data = MyDF)
 
 
@@ -28,15 +30,17 @@ MyDF$MonthNr <- month(ymd(MyDF$Datum))
 
 MyDF %>% head()
 MyDF %>% str()
+MyDF %>% tail()
+
 
 #MyDF[MyDF$Abverkauf==NA,] %>% count()
 # Original Plot
-#qplot(Datum, Abverkauf ,data = MyDF)
+
 
 # Differentation between first and last week!
-MyDF %>% head()
-MyDF %>% tail()
-MyDF %>% str()
+
+
+
 MyDF[MyDF$WeekNr==22,] %>% count()
 
 MyDF$WeekNr[MyDF$Datum=="1999-06-01"] = 0

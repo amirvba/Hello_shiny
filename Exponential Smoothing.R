@@ -1,9 +1,7 @@
 
 df <- MyDF %>% get__AMdf() %>% get__Weeklydf()
 
-#df <- MyDF
-y <- ses(df$Abverkauf,alpha = 0.3)
-df$FittedSES <- y$fitted
+
 y$model
 
 ggplot(df, aes(df$WeekNr))+ 
