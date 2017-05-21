@@ -12,6 +12,8 @@ get__PMdf <- function(df) {
   return(df[df$PAM == "PM",])
 }
 
+
+
 #Werbungdf <- df[df$Werbung == 1,]
 get__Werbungdf <- function(df) {
   return(df[df$Werbung == 1,])
@@ -23,19 +25,20 @@ get__OhneWerbungdf <- function(df) {
 }
 
 #Dailydf <- function(df, Datum, Abverkauf, Werbung, WeekNr) {
+
 get__Dailydf <- function(df) {
   Dailydf <-   df %>%
     group_by(Datum) %>%
     summarise(
       Abverkauf = sum(Abverkauf),
-      WerbungMax = max(Werbung),
-      WerbungMin = min(Werbung),
+      Werbung = max(Werbung),
+      #WerbungMin = min(Werbung),
       WeekNr = max(WeekNr),
-      Day = DayNr
+      DayNr = max(DayNr)
     )
   return(Dailydf)
 }
-
+#MyDF %>% get__Dailydf() %>% head()
 #get_Weeklydf <- function(df, WeekNr, Abverkauf, Werbung) {
 get__Weeklydf <- function(df) {
   Weeklydf <-   df %>%

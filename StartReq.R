@@ -1,4 +1,5 @@
 source('~/Zeitreihe/ReadData.R')
+source('~/Zeitreihe/dfGenerator.R')
 
 
 myPAMfunction <- function(df, type) {
