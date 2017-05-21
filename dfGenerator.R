@@ -1,6 +1,16 @@
 #ggplot(MyDF, aes(x=MyDF$Datum))+ 
 #  geom_line(aes_string(x = x_string)+
 #  geom_line(aes(aes_string(x = x_string,color = 'red',size="2")))
+MovingAverage <- function(df,n) {
+  FittedMA <- c(rep(NA,n)  ,head(rollmean(df$Abverkauf, n),-1))
+  FittedMA %>% head()
+  FittedMA %>% length()
+  df %>% dim()
+  df$FittedMA <- FittedMA
+  return(df)
+}
+
+
 
 get__AMdf <- function(df) {
   return(df[df$PAM == "AM",])

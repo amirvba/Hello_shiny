@@ -32,6 +32,7 @@ ggplot() +
   geom_line(data = daily_data, aes(x = WeekNr, y = cnt_ma30, colour = "Monthly Moving Average"))  +
   ylab('Bicycle Count')
   
+
 daily_data <- ts(daily_data,frequency = 7)
 daily_data %>% class
 decomp = stl(daily_data,s.window = "periodic")

@@ -23,6 +23,29 @@ shinyServer(
        qplot(factor(0),Abverkauf,data=data,geom='boxplot')+ xlab(" ")
        #boxplot(MyDF$Abverkauf,horizontal = TRUE)
        
+       
      })
+     
+     output$LayerdPlot <- renderPlot({
+       data <- myData()
+          p <- ggplot(data, aes_string(colnames(data)[1]))
+          p <- p +  geom_line(aes(y=Abverkauf))
+          p <- p +  geom_line(aes(y=mean(Abverkauf)*Werbung,color = 'red'))
+          p
+       
+     })
+     
+     output$LayerdForcast <- renderPlot({
+       data <- myData()
+       p <- ggplot(data, aes_string(colnames(data)[1]))
+       p <- p +  geom_line(aes(y=Abverkauf))
+       if(input$myMethod=="MA"){ 
+         p <- p +  geom_line(aes(y=FittedMA,color = 'red'))
+         }
+       #p <- p +  geom_line(aes(y=mean(Abverkauf)*Werbung,color = 'red'))
+       p
+       
+     })
+     
   }
 )

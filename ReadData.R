@@ -50,7 +50,6 @@ MyDF %>% tail()
 MyDF[MyDF$WeekNr==22,] %>% count()
 ##########
 
-
 # Outlier removal
 #boxplot(MyDF$Abverkauf,horizontal = TRUE)
 (MyOutlier <- subset(MyDF,Abverkauf>30))
@@ -58,3 +57,5 @@ Cleandf <- MyDF[MyDF$Abverkauf<30,]
 #boxplot(Cleandf$Abverkauf,horizontal = TRUE)
 #hist(Cleandf$Abverkauf)
 #hist(MyDF$Abverkauf)
+
+DF <- MyDF %>% MovingAverage(4)

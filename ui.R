@@ -14,8 +14,12 @@ shinyUI(fluidPage(
                    selected = "Both"),
       radioButtons("DataCleaning","Data Preprocessing",
                    choices =  c("None", "Custome", "ts_clean"),
-                   selected = "None")),
-  
+                   selected = "None"),
+      checkboxGroupInput("myMethod", "Forcast methods:",
+                         c("Moving Average" = ",myMA",
+                           "Exponetial Smoothing" = ",myExpoSmo",
+                           "ARIMA" = "myARIMA",
+                           "Regression" = "myRegression"))),
     
       #radioButtons("Forcasts","Forcasting Methods",
       #           choices =  c("Moving Average", "ExponentielesGlaetten", "Regression"),
@@ -23,7 +27,9 @@ shinyUI(fluidPage(
   
     mainPanel(tabsetPanel(
       id = 'dataset',
+      #tabPanel("LayerdForcast", plotOutput("LayerdForcast")),
       tabPanel("Plot", plotOutput("plot")),
+      tabPanel("LayerdPlot", plotOutput("LayerdPlot")),
       tabPanel('Data', dataTableOutput('table')),
       tabPanel("Histogram", plotOutput("BoxPlot"))
       
