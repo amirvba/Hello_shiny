@@ -1,7 +1,5 @@
 #table(is.na(mydf$abverkauf))
 
-installed.packages("randomForest")
-install.packages("randomForest")
 
 rm(list = ls())
 source('~/Zeitreihe/MyLibraries.R')
