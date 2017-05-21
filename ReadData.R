@@ -1,5 +1,3 @@
-#table(is.na(mydf$abverkauf))
-
 rm(list = ls())
 source('~/Zeitreihe/MyLibraries.R')
 source('~/Zeitreihe/dfGenerator.R')
@@ -12,12 +10,12 @@ MyDF <-  read.csv(MyPath, header = TRUE, sep = c(";"," "))
 MyDF <- MyDF[c(-1,-2)]
 MyDF %>% head()
 MyDF <- MyDF[,c(1,4,3,2)]
-qplot(Datum, Abverkauf ,data = MyDF)
+##qplot(Datum, Abverkauf ,data = MyDF)
 MyDF$Datum <- as.Date(MyDF$Datum,format = "%m/%d/%Y")
 MyDF %>% head()
 
 
-qplot(Datum, Abverkauf ,data = MyDF)
+##qplot(Datum, Abverkauf ,data = MyDF)
 ##qplot(Abverkauf ,data = MyDF)
 
 
@@ -60,37 +58,3 @@ Cleandf <- MyDF[MyDF$Abverkauf<30,]
 #boxplot(Cleandf$Abverkauf,horizontal = TRUE)
 #hist(Cleandf$Abverkauf)
 #hist(MyDF$Abverkauf)
-
-
-
-#qplot(MyDF$Datum, MyDF$Abverkauf)
-
-##ggplot(MyDF,aes(x=Datum,y=Abverkauf,color=MyDF$Abverkauf))+geom_line()#  geom_point()
-
-
-df <- Cleandf %>% get__Weeklydf()
-df[df$Abverkauf==12,] %>% count()
-#hist(df$Abverkauf)
-
-df <- Cleandf %>% get__AMdf() %>% get__Weeklydf()
-
-df <- Cleandf %>% get__PMdf() %>% get__Dailydf()
-#df$Abverkauf <- df$Abverkauf %>% log()
-
-##qplot(df$Datum,df$Abverkauf)+xlab("Datum") +   ylab("Abverkauf")+geom_line()
-
-
-##hist(df$Abverkauf)
-##qplot(Cleandf$WeekNr,Cleandf$Abverkauf)+xlab("Datum") + 
-##  ylab("Abverkauf")
-tsclean(MyDF$Abverkauf)
-
-
-Myts <- ts(df$Abverkauf,frequency = 31)
-Myts
-Myts %>% decompose()
-#Myts %>% stl()
-Myts %>% adf.test()
-
-#MyDF$Uhrzeit[1] %>% class()
-#MyDF$Uhrzeit %>% str_sub( start= -2)

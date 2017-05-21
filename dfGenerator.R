@@ -35,8 +35,7 @@ get__Dailydf <- function(df) {
     )
   return(Dailydf)
 }
-#MyDF %>% get__Dailydf() %>% head()
-#get_Weeklydf <- function(df, WeekNr, Abverkauf, Werbung) {
+
 get__Weeklydf <- function(df) {
   Weeklydf <-   df %>%
     group_by(WeekNr) %>%
@@ -49,7 +48,6 @@ get__Weeklydf <- function(df) {
   return(Weeklydf)
 }
 
-#Monthlydf <- function(df, MonthNr, Abverkauf, Werbung) {
 get__Monthlydf <- function(df) {
   Monthlydf <-   df %>%
     group_by(MonthNr) %>%
@@ -57,8 +55,7 @@ get__Monthlydf <- function(df) {
       Abverkauf = sum(Abverkauf),
       #WerbungMin = min(Werbung),
       Werbung = max(Werbung)
-      
-    )
+      )
   return(Monthlydf)
 }
 
@@ -106,7 +103,8 @@ myCleaner <- function(df, type){
   # konam?!
   df <- switch(type,
                None = df,
-               Custome = df[df$Abverkauf<n,],
-               ts_clean = ts(df$Abverkauf,frequency = 30) %>% tsclean(replace.missing = TRUE))
+               Custome = df[df$Abverkauf<30,],
+               ts_clean = df[df$Abverkauf<20,])
+               #ts_clean = ts(df$Abverkauf,frequency = 30) %>% tsclean(replace.missing = TRUE))
   return(df)
 }

@@ -1,7 +1,7 @@
 shinyUI(fluidPage(
   titlePanel(title = "Time Series analysis"),
   sidebarLayout(
-    sidebarPanel("Data manipulation",
+    sidebarPanel(strong("Data manipulation:"),width = 3,
       br(),
       radioButtons("PAM","AM or PM?",
                    choices =  c("Both", "AM" , "PM"),
@@ -14,7 +14,7 @@ shinyUI(fluidPage(
                    selected = "Both"),
       radioButtons("DataCleaning","Data Preprocessing",
                    choices =  c("None", "Custome", "ts_clean"),
-                   selected = "NoCleaning")),
+                   selected = "None")),
   
     
       #radioButtons("Forcasts","Forcasting Methods",
@@ -24,7 +24,8 @@ shinyUI(fluidPage(
     mainPanel(tabsetPanel(
       id = 'dataset',
       tabPanel("Plot", plotOutput("plot")),
-      tabPanel('Data', dataTableOutput('table'))
+      tabPanel('Data', dataTableOutput('table')),
+      tabPanel("Histogram", plotOutput("BoxPlot"))
       
     )))))
 
