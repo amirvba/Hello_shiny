@@ -11,16 +11,20 @@ MyPath <- "/home/amir/Desktop/Daten_amir.csv"
 MyDF <-  read.csv(MyPath, header = TRUE, sep = c(";"," "))
 MyDF <- MyDF[c(-1,-2)]
 MyDF %>% head()
+MyDF <- MyDF[,c(1,4,3,2)]
 MyDF$Datum <- as.Date(MyDF$Datum,format = "%d/%m/%Y")
 MyDF %>% head()
+
+
 ##qplot(Abverkauf ,data = MyDF)
 
 
 
 MyDF$PAM <- MyDF$Uhrzeit %>% str_sub( start= -2)
+MyDF$DayNr <- weekdays(as.Date(MyDF$Datum)) 
 MyDF$WeekNr <- week(ymd(MyDF$Datum))
 MyDF$MonthNr <- month(ymd(MyDF$Datum))
-MyDF$DayNr <- weekdays(as.Date(MyDF$Datum)) 
+
 
 MyDF %>% head()
 MyDF %>% str()

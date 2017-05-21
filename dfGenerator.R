@@ -2,7 +2,6 @@
 #  geom_line(aes_string(x = x_string)+
 #  geom_line(aes(aes_string(x = x_string,color = 'red',size="2")))
 
-
 get__AMdf <- function(df) {
   return(df[df$PAM == "AM",])
 }
@@ -11,8 +10,6 @@ get__AMdf <- function(df) {
 get__PMdf <- function(df) {
   return(df[df$PAM == "PM",])
 }
-
-
 
 #Werbungdf <- df[df$Werbung == 1,]
 get__Werbungdf <- function(df) {
@@ -25,7 +22,6 @@ get__OhneWerbungdf <- function(df) {
 }
 
 #Dailydf <- function(df, Datum, Abverkauf, Werbung, WeekNr) {
-
 get__Dailydf <- function(df) {
   Dailydf <-   df %>%
     group_by(Datum) %>%
@@ -33,8 +29,9 @@ get__Dailydf <- function(df) {
       Abverkauf = sum(Abverkauf),
       Werbung = max(Werbung),
       #WerbungMin = min(Werbung),
+      DayNr = max(DayNr),
       WeekNr = max(WeekNr),
-      DayNr = max(DayNr)
+      MonthNr = max(MonthNr)
     )
   return(Dailydf)
 }
@@ -45,8 +42,9 @@ get__Weeklydf <- function(df) {
     group_by(WeekNr) %>%
     summarise(
       Abverkauf = sum(Abverkauf),
-      WerbungMax = max(Werbung),
-      WerbungMin = min(Werbung)
+      #Werbung = min(Werbung)
+      Werbung = max(Werbung),
+      MonthNr = max(MonthNr)
     )
   return(Weeklydf)
 }
@@ -57,8 +55,9 @@ get__Monthlydf <- function(df) {
     group_by(MonthNr) %>%
     summarise(
       Abverkauf = sum(Abverkauf),
-      WerbungMax = max(Werbung),
-      WerbungMin = min(Werbung)
+      #WerbungMin = min(Werbung),
+      Werbung = max(Werbung)
+      
     )
   return(Monthlydf)
 }
@@ -69,5 +68,34 @@ myTest <- function(df){
 }
 
 
-#Almost Original code from Internet:
-week(ymd("2014-03-16", "2014-03-17","2014-03-18", '2014-01-01'))
+myPAMfunction <- function(df, type) {
+  df <- switch(type,
+               Both =df,
+               AM=get__AMdf(df),
+               PM=get__PMdf(df))
+  return(df)
+}
+
+myDayfunction <- function(df, type) {
+  df <- switch(type,
+               Original =df ,
+               Daily = get__Dailydf(df),
+               Weekly=get__Weeklydf(df),
+               Monthly = get__Monthlydf(df))
+  return(df)
+}
+
+myWerbungfunction <- function(df, type) {
+  df <- switch(type,
+               Both =df,
+               Within=get__Werbungdf(df),
+               Without=get__OhneWerbungdf(df))
+  return(df)
+}
+
+myDataChanger <- function(df,type1,type2,type3){
+  return(df %>% 
+    myPAMfunction(type1) %>% 
+    myWerbungfunction(type2) %>% 
+    myDayfunction(type3))
+}
