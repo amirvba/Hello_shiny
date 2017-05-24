@@ -72,8 +72,3 @@ p
 
 
 MyDF %>% str()
-
-
-install.packages("VIM")
-library("VIM")
-aggr(airquality)
