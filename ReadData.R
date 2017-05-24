@@ -37,7 +37,8 @@ MyDF %>% tail()
 
 # Differentation between first and last week!
 
-
+# I should write it using lapply. 
+# refere to http://adv-r.had.co.nz/Functional-programming.html#fp-motivation
 
 MyDF[MyDF$WeekNr==22,] %>% count()
 
@@ -58,4 +59,6 @@ Cleandf <- MyDF[MyDF$Abverkauf<30,]
 #hist(Cleandf$Abverkauf)
 #hist(MyDF$Abverkauf)
 
-DF <- MyDF %>% MovingAverage(4)
+
+# Add Moving Average Fitted data:
+

@@ -1,15 +1,27 @@
-#ggplot(MyDF, aes(x=MyDF$Datum))+ 
-#  geom_line(aes_string(x = x_string)+
-#  geom_line(aes(aes_string(x = x_string,color = 'red',size="2")))
-MovingAverage <- function(df,n) {
+myMA <- function(df,n ) {
+  
   FittedMA <- c(rep(NA,n)  ,head(rollmean(df$Abverkauf, n),-1))
+  #FittedMA <- c(rep(NA,n)  ,head(rollmean(df()[,2], n),-1))
   FittedMA %>% head()
   FittedMA %>% length()
   df %>% dim()
   df$FittedMA <- FittedMA
+  length(names(df))
+  #df %>% head()
+  
+  names(df)[length(names(df))] <-paste("FittedMA" ,toString(n),sep = "_")
   return(df)
 }
 
+myMA_n <- function(DF,myRange) {
+  df <- DF
+  
+  for(i in myRange){
+    df_tempp <- myMA(df,i)
+    df <- data.frame(df, df_tempp[,ncol(df_tempp),drop=FALSE])
+  }
+  return(df)
+}
 
 
 get__AMdf <- function(df) {
@@ -87,8 +99,8 @@ myDayfunction <- function(df, type) {
   df <- switch(type,
                Original =df ,
                Daily = get__Dailydf(df),
-               Weekly=get__Weeklydf(df),
-               Monthly = get__Monthlydf(df))
+               Weekly=get__Weeklydf(df))
+               #Monthly = get__Monthlydf(df))
   return(df)
 }
 

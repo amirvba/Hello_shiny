@@ -3,11 +3,11 @@ shinyUI(fluidPage(
   sidebarLayout(
     sidebarPanel(strong("Data manipulation:"),width = 3,
       br(),
-      radioButtons("PAM","AM or PM?",
-                   choices =  c("Both", "AM" , "PM"),
-                   selected = "Both"),
+      # radioButtons("PAM","AM or PM?",
+      #              choices =  c("Both", "AM" , "PM"),
+      #              selected = "Both"),
       radioButtons("TimeUnit","Time unit?",
-                   choices =  c("Original", "Daily" , "Weekly", "Monthly"),
+                   choices =  c("Original", "Daily" , "Weekly"),
                    selected = "Original"),
       radioButtons("Promotion","Promotion?",
                    choices =  c("Both", "Within", "Without"),
@@ -16,21 +16,20 @@ shinyUI(fluidPage(
                    choices =  c("None", "Custome", "ts_clean"),
                    selected = "None"),
       checkboxGroupInput("myMethod", "Forcast methods:",
-                         c("Moving Average" = ",myMA",
+                         c("Moving Average" = "myMA",
                            "Exponetial Smoothing" = ",myExpoSmo",
                            "ARIMA" = "myARIMA",
-                           "Regression" = "myRegression"))),
+                           "Regression" = "myRegression"),selected = "myExpoSmo")),
     
-      #radioButtons("Forcasts","Forcasting Methods",
-      #           choices =  c("Moving Average", "ExponentielesGlaetten", "Regression"),
-      #           selected = "NoCleaning")),
   
     mainPanel(tabsetPanel(
       id = 'dataset',
-      #tabPanel("LayerdForcast", plotOutput("LayerdForcast")),
+      
+      tabPanel("LayerdForcast", plotOutput("LayerdForcast")),
+      tabPanel('Data', dataTableOutput('table')),
       tabPanel("Plot", plotOutput("plot")),
       tabPanel("LayerdPlot", plotOutput("LayerdPlot")),
-      tabPanel('Data', dataTableOutput('table')),
+      
       tabPanel("Histogram", plotOutput("BoxPlot"))
       
     )))))

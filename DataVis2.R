@@ -1,5 +1,5 @@
 n <- 7
-df <- Cleandf %>% get__PMdf() %>% get__Weeklydf()
+
 df <- Cleandf %>%  get__Dailydf()
 
 mylm <- lm(df$Abverkauf~ df$WeekNr+df$WerbungMax)

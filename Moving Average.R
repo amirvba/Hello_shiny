@@ -1,23 +1,35 @@
-#FittedMA <- c(rep(NA,n-1)  ,rollmean(df$Abverkauf, n))
+# Only Moving Average, Stand alone!
+source('~/Zeitreihe/ReadData.R')
+source('~/Zeitreihe/dfGenerator.R')
+
+cat("\014")
+df <- MyDF %>% get__Dailydf()
+df %>% head()
+df %>% tail()
 
 
-MyDF <- MyDF %>% get__Weeklydf()
-p <-   ggplot(MyDF, aes(MyDF$WeekNr))
-p <- p +  geom_line(aes(y=MyDF$Abverkauf))
-p <- p +  geom_line(aes(y=200+50*MyDF$Werbung,color = 'red'))
-MyDF %>% head
-p
-
-if(1 %in% c(1,2,3)){
-  print("hi")
-}
-DF <- MyDF %>% MovingAverage(4)
-DF %>% head()
-ExpoSmo <- function(df) {
-  y <- ses(df$Abverkauf,alpha = 0.3)
-  df$FittedSES <- y$fitted
+myMA <- function(df,n ) {
+  
+  FittedMA <- c(rep(NA,n)  ,head(rollmean(df$Abverkauf, n),-1))
+  #FittedMA <- c(rep(NA,n)  ,head(rollmean(df()[,2], n),-1))
+  FittedMA %>% head()
+  FittedMA %>% length()
+  df %>% dim()
+  df$FittedMA <- FittedMA
+  length(names(df))
+  #df %>% head()
+  
+  names(df)[length(names(df))] <-paste("FittedMA" ,toString(n),sep = "_")
   return(df)
 }
 
-DF <- DF %>% ExpoSmo()
-DF %>% head()
+myMA_n <- function(DF,myRange) {
+  df <- DF
+  
+  for(i in myRange){
+    df_tempp <- myMA(df,i)
+    df <- data.frame(df, df_tempp[,ncol(df_tempp),drop=FALSE])
+  }
+  return(df)
+}
+myMA_n(MyDF,seq(2,7)) %>% head(10)
