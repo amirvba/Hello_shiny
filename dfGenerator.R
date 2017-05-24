@@ -149,3 +149,15 @@ myCleaner <- function(df, type){
                #ts_clean = ts(df$Abverkauf,frequency = 30) %>% tsclean(replace.missing = TRUE))
   return(df)
 }
+
+
+#My Moving Average code, written from scratch!
+# MyMovingAverage <- function(df, n) {
+#   x <- df
+#   y <- rep(NA, length(x))
+#   for (i in seq(n + 1, length(x))) {
+#     y[i] <- mean(x[(i - n):(i - 1)])
+#   }
+#   #return(data.frame(x,y))
+#   return(y)
+# }

@@ -8,7 +8,7 @@ shinyUI(fluidPage(
       #              selected = "Both"),
       radioButtons("TimeUnit","Time unit?",
                    choices =  c("Original", "Daily" , "Weekly"),
-                   selected = "Original"),
+                   selected = "Daily"),
       radioButtons("Promotion","Promotion?",
                    choices =  c("Both", "Within", "Without"),
                    selected = "Both"),
@@ -21,7 +21,6 @@ shinyUI(fluidPage(
                            "ARIMA" = "myARIMA",
                            "Regression" = "myRegression"),selected = "myExpoSmo")),
     
-  
     mainPanel(tabsetPanel(
       id = 'dataset',
       
@@ -30,12 +29,6 @@ shinyUI(fluidPage(
       tabPanel("MA_Forcast", plotOutput("MA_Forcast")),
       tabPanel('Data', dataTableOutput('table')),
       tabPanel("Plot", plotOutput("plot")),
-      
       tabPanel("Histogram", plotOutput("BoxPlot"))
       
-    )))))
-
-# Moving Average
-# Explonentieles Glätten
-# ARIMA
-# Regression
+)))))

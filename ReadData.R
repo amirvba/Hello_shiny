@@ -24,9 +24,17 @@ MyDF %>% str()
 MyDF %>% tail()
 
 
+# NA Detection
 #MyDF[MyDF$Abverkauf==NA,] %>% count()
+sapply(MyDF, function(x) sum(is.na(x)))
 
 
+#Outlier Detection:
+summary(MyDF$Abverkauf)
+#df <- MyDF %>% get__Dailydf()
+#summary(df$Abverkauf)
+
+MyDF[MyDF$Abverkauf==96,] %>% count()
 # Differentation between first and last week!
 MyDF[MyDF$WeekNr==22,] %>% count()
 
@@ -45,7 +53,7 @@ MyDF[MyDF$WeekNr==22,] %>% count()
 # Add Moving Average Fitted data:
 
 #MyDF$DayNr <- MyDF$DayNr %>% as.factor()
-MyDF %>% str()
+#MyDF %>% str()
 df <- MyDF %>% get__Dailydf()
 #df <- MyDF %>% get__Weeklydf()
 
@@ -62,3 +70,10 @@ p <- p +  geom_line(aes(y=Regression),color='red')
 p
 
 
+
+MyDF %>% str()
+
+
+install.packages("VIM")
+library("VIM")
+aggr(airquality)
