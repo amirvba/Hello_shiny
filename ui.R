@@ -25,10 +25,11 @@ shinyUI(fluidPage(
     mainPanel(tabsetPanel(
       id = 'dataset',
       
-      tabPanel("LayerdForcast", plotOutput("LayerdForcast")),
+      tabPanel("Reg_Forcast", plotOutput("Reg_Forcast")),
+      tabPanel("LayerdPlot", plotOutput("LayerdPlot")),
+      tabPanel("MA_Forcast", plotOutput("MA_Forcast")),
       tabPanel('Data', dataTableOutput('table')),
       tabPanel("Plot", plotOutput("plot")),
-      tabPanel("LayerdPlot", plotOutput("LayerdPlot")),
       
       tabPanel("Histogram", plotOutput("BoxPlot"))
       

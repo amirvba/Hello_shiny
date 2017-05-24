@@ -1,11 +1,14 @@
 shinyServer(
   function(input,output){
     
-     myData <- reactive({MyDF %>%
+     myData <- reactive({MyDF %>% 
+#         head(1000) %>% 
          myCleaner(input$DataCleaning) %>% 
 #         myPAMfunction(input$PAM) %>% 
          myWerbungfunction(input$Promotion) %>% 
-         myDayfunction(input$TimeUnit) %>%  myMA_n(c(2,4,7)) 
+         myDayfunction(input$TimeUnit) %>%  
+         myMA_n(c(2,4,7)) %>% 
+         myRegression()
        
      })
      
@@ -30,7 +33,7 @@ shinyServer(
        
      })
      
-     output$LayerdForcast <- renderPlot({
+     output$MA_Forcast <- renderPlot({
        data <- myData()
        
        p <- ggplot(data, aes_string(colnames(data)[1])) 
@@ -41,6 +44,19 @@ shinyServer(
        
       p
         
+     })
+     
+     output$Reg_Forcast <- renderPlot({
+       data <- myData()
+       
+       p <- ggplot(data, aes_string(colnames(data)[1])) 
+       p <- p +  geom_line(aes(y=Abverkauf))
+       #if(input$myMethod=="myMA") {print("hi")}
+       p <- p +  geom_line(aes(y=Regression),color='red')
+       #p <- p +  geom_line(aes(y=FittedMA_7),color='blue') 
+       
+       p
+       
      })
      
   }

@@ -10,15 +10,8 @@ MyDF <-  read.csv(MyPath, header = TRUE, sep = c(";"," "))
 MyDF <- MyDF[c(-1,-2)]
 MyDF %>% head()
 MyDF <- MyDF[,c(1,4,3,2)]
-##qplot(Datum, Abverkauf ,data = MyDF)
 MyDF$Datum <- as.Date(MyDF$Datum,format = "%m/%d/%Y")
 MyDF %>% head()
-
-
-##qplot(Datum, Abverkauf ,data = MyDF)
-##qplot(Abverkauf ,data = MyDF)
-
-
 
 MyDF$PAM <- MyDF$Uhrzeit %>% str_sub( start= -2)
 MyDF$DayNr <- weekdays(as.Date(MyDF$Datum)) 
@@ -32,14 +25,9 @@ MyDF %>% tail()
 
 
 #MyDF[MyDF$Abverkauf==NA,] %>% count()
-# Original Plot
 
 
 # Differentation between first and last week!
-
-# I should write it using lapply. 
-# refere to http://adv-r.had.co.nz/Functional-programming.html#fp-motivation
-
 MyDF[MyDF$WeekNr==22,] %>% count()
 
 MyDF$WeekNr[MyDF$Datum=="1999-06-01"] = 0
@@ -52,13 +40,25 @@ MyDF[MyDF$WeekNr==22,] %>% count()
 ##########
 
 # Outlier removal
-#boxplot(MyDF$Abverkauf,horizontal = TRUE)
-(MyOutlier <- subset(MyDF,Abverkauf>30))
-Cleandf <- MyDF[MyDF$Abverkauf<30,]
-#boxplot(Cleandf$Abverkauf,horizontal = TRUE)
-#hist(Cleandf$Abverkauf)
-#hist(MyDF$Abverkauf)
 
 
 # Add Moving Average Fitted data:
+
+#MyDF$DayNr <- MyDF$DayNr %>% as.factor()
+MyDF %>% str()
+df <- MyDF %>% get__Dailydf()
+#df <- MyDF %>% get__Weeklydf()
+
+
+mylm <- lm(Abverkauf~ Datum+ DayNr + WeekNr +Werbung ,data = df)
+summary(mylm)
+mylm %>% names()
+df$Regression<- mylm$fitted.values
+
+p <- ggplot(df, aes_string(colnames(df)[1])) 
+p <- p +  geom_line(aes(y=Abverkauf)) 
+p <- p +  geom_line(aes(y=Regression),color='red')
+#p <- p +  geom_line(aes(y=FittedMA_20),color='blue') 
+p
+
 

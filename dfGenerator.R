@@ -1,3 +1,22 @@
+get__Tag <- function(df) {
+  Dailydf <-   df %>%
+    group_by(DayNr) %>%
+    summarise(
+      Abverkauf = sum(Abverkauf)
+      
+    )
+  return(Dailydf)
+}
+
+myRegression <- function(df) {
+  mylm <- lm(Abverkauf~ Datum + DayNr + WeekNr + Werbung, data = df)
+  summary(mylm)
+  mylm %>% names()
+  df$Regression<- mylm$fitted.values
+  return(df)
+}
+
+
 myMA <- function(df,n ) {
   
   FittedMA <- c(rep(NA,n)  ,head(rollmean(df$Abverkauf, n),-1))
