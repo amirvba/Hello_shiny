@@ -34,8 +34,8 @@ shinyServer(
      })
      
      output$MA_Forcast <- renderPlot({
-       data <- myData()
        
+       data <- myData()
        p <- ggplot(data, aes_string(colnames(data)[1])) 
        p <- p +  geom_line(aes(y=Abverkauf))
        #if(input$myMethod=="myMA") {print("hi")}

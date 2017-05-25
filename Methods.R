@@ -14,4 +14,3 @@ p <- p +  geom_line(aes(y=Abverkauf))
 p <- p +  geom_line(aes(y=Regression),color='red')
 #p <- p +  geom_line(aes(y=FittedMA_20),color='blue') 
 p
-
