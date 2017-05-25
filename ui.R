@@ -17,17 +17,20 @@ shinyUI(fluidPage(
                    selected = "None"),
       checkboxGroupInput("myMethod", "Forcast methods:",
                          c("Moving Average" = "myMA",
-                           "Exponetial Smoothing" = ",myExpoSmo",
+                           #"Exponetial Smoothing" = "myExpoSmo",
                            "ARIMA" = "myARIMA",
-                           "Regression" = "myRegression"),selected = "myExpoSmo")),
+                           "Holt Winter" = "myHW",
+                           "Regression" = "myRegression"))),#,selected = "myMA"
     
     mainPanel(tabsetPanel(
       id = 'dataset',
       
       tabPanel("Reg_Forcast", plotOutput("Reg_Forcast")),
+      tabPanel('Erros', dataTableOutput('Erros')),
       tabPanel("LayerdPlot", plotOutput("LayerdPlot")),
       tabPanel("MA_Forcast", plotOutput("MA_Forcast")),
       tabPanel('Data', dataTableOutput('table')),
+      
       tabPanel("Plot", plotOutput("plot")),
       tabPanel("Histogram", plotOutput("BoxPlot"))
       

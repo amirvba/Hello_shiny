@@ -53,52 +53,40 @@ MyDF[MyDF$WeekNr == 22, ] %>% count()
 
 ###############################
 #Verfahren:
+myFeatures <- MyDF
+MyDF <- MyDF %>% 
+    get__Dailydf() %>% 
+    myMA_n(c(2,4,7)) %>% 
+    myRegression() %>% 
+    myHoltWinter() %>% 
+    myARIMA()
 
-#df <-MyDF %>%
-#  get__Dailydf() %>% 
+df <-MyDF %>%
+  get__Dailydf() %>% 
   #get__Weeklydf() %>% 
-#  myMA_n(c(2,4,7)) %>% 
-#  myRegression()
-
-#MyDF %>% str()
-df <- MyDF %>% get__Dailydf()
-#df <- MyDF %>% get__Weeklydf()
-
-
-#Regression:
-mylm <- lm(Abverkauf ~ Datum + DayNr + WeekNr + Werbung , data = df)
-summary(mylm)
-mylm %>% names()
-df$Regression <- mylm$fitted.values
-
-
-# Holt-Winter:
-myTS <- ts(df$Abverkauf,frequency =7)
-myHW<- hw(y = myTS)
-df$Fitted_hw <- myHW$fitted
-
-
-#Moving Average:
-df <- myMA_n(df,c(2,4,7))
-
-
-
+  myMA_n(c(2,4,7)) %>% 
+  myRegression() %>% 
+  myHoltWinter() %>% 
+  myARIMA()
+  
 df %>%  head()
 df %>% str()
-
-myARIMA <- auto.arima(df$Abverkauf)
-myARIMA %>% names()
-myARIMA$fitted
-df$Fitted_Arima <- myARIMA$fitted
-data <- df
-
-MAPE(actual = df$Abverkauf,forecast = df$Regression)
-MAPE(actual = df$Abverkauf,forecast = df$Fitted_Arima)
-MAPE(actual = df$Abverkauf,forecast = df$FittedMA_7)
-MAPE(actual = df$Abverkauf,forecast = df$Fitted_hw)
 
 p <- ggplot(df, aes_string(colnames(df)[1]))
 p <- p +  geom_line(aes(y = Abverkauf))
 p <- p +  geom_line(aes(y = Regression), color = 'red')
-p <- p +  geom_line(aes(y = Fitted_Arima), color = 'blue')
+#p <- p +  geom_line(aes(y = Fitted_Arima), color = 'blue')
+#p <- p +  geom_line(aes(y = Fitted_hw), color = 'yellow')
+#p <- p +  geom_line(aes(y = Fitted_hw), color = 'green')
 p
+
+
+myList_Fitted <- list(df$Regression,df$FittedMA_7,df$Fitted_hw,df$Fitted_Arima)
+
+myData <- MyDF
+myList_Fitted <- list(myData$Regression,
+                      myData$FittedMA_7,
+                      myData$Fitted_hw,
+                      myData$Fitted_Arima) %>% 
+  sapply(MAPE ,actual = df$Abverkauf) %>% data.frame()
+names(myList_Fitted)  <- "MAPE"

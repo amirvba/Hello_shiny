@@ -8,6 +8,26 @@ get__Tag <- function(df) {
   return(Dailydf)
 }
 
+myARIMA <- function(df) {
+  local_df <- auto.arima(df$Abverkauf)
+  local_df %>% names()
+  #local_df$fitted
+  df$Fitted_Arima <- local_df$fitted
+  return(df)
+}
+
+myHoltWinter <- function(df) {
+  myTS <- ts(df$Abverkauf,frequency =7)
+  local_df<- hw(y = myTS)
+  df$Fitted_hw <- local_df$fitted
+  return(df)
+}
+
+
+#haha <- myHoltWinter(MyDF)
+#haha %>% head()
+#haha %>% str()
+
 myRegression <- function(df) {
   mylm <- lm(Abverkauf~ Datum + DayNr + WeekNr + Werbung, data = df)
   summary(mylm)
@@ -149,6 +169,7 @@ myCleaner <- function(df, type){
                #ts_clean = ts(df$Abverkauf,frequency = 30) %>% tsclean(replace.missing = TRUE))
   return(df)
 }
+
 
 
 #My Moving Average code, written from scratch!
