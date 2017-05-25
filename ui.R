@@ -27,11 +27,11 @@ shinyUI(fluidPage(
       
       tabPanel("Reg_Forcast", plotOutput("Reg_Forcast")),
       tabPanel('Erros', dataTableOutput('Erros')),
-      tabPanel("LayerdPlot", plotOutput("LayerdPlot")),
-      tabPanel("MA_Forcast", plotOutput("MA_Forcast")),
+      tabPanel("Werbungseffekt", plotOutput("LayerdPlot")),
+      #tabPanel("MA_Forcast", plotOutput("MA_Forcast")),
       tabPanel('Data', dataTableOutput('table')),
       
-      tabPanel("Plot", plotOutput("plot")),
+      #tabPanel("Plot", plotOutput("plot")),
       tabPanel("Histogram", plotOutput("BoxPlot"))
       
 )))))
