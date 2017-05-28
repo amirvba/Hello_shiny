@@ -8,6 +8,7 @@ library(lubridate)
 library(tseries)
 library(shiny)
 library(stringr)
+library(fpp)
 
 #library(hflights)
 #library(reshape)
@@ -17,3 +18,4 @@ library(stringr)
 #         "dplyr","lubridate","tseries","shiny","stringr")
 
 #sapply(myLib, library, character.only=T) %>% data.frame()
+#install.packages(fpp)

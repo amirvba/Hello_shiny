@@ -23,9 +23,9 @@ myHoltWinter <- function(df) {
   return(df)
 }
 
-
-#haha <- myHoltWinter(MyDF)
-#haha %>% head()
+ 
+#haha <- myTsReg(MyDF)
+#MyDF %>% head()
 #haha %>% str()
 
 myRegression <- function(df) {
@@ -33,12 +33,13 @@ myRegression <- function(df) {
   summary(mylm)
   mylm %>% names()
   df$Regression<- mylm$fitted.values
+  #accuracy(mylm) %>% print()
   return(df)
 }
 
 
 myMA <- function(df,n ) {
-  
+?accuracy  
   FittedMA <- c(rep(NA,n)  ,head(rollmean(df$Abverkauf, n),-1))
   #FittedMA <- c(rep(NA,n)  ,head(rollmean(df()[,2], n),-1))
   FittedMA %>% head()
@@ -82,7 +83,7 @@ get__OhneWerbungdf <- function(df) {
   return(df[df$Werbung == 0,])
 }
 
-#Dailydf <- function(df, Datum, Abverkauf, Werbung, WeekNr) {
+
 get__Dailydf <- function(df) {
   Dailydf <-   df %>%
     group_by(Datum) %>%
@@ -160,8 +161,6 @@ myDataChanger <- function(df,type1,type2,type3){
 
 
 myCleaner <- function(df, type){
-#in tabe ts iekam moshkel dare! kolan faghat ie dune sotun pas mide! che
-  # konam?!
   df <- switch(type,
                None = df,
                Custome = df[df$Abverkauf<30,],
@@ -171,14 +170,3 @@ myCleaner <- function(df, type){
 }
 
 
-
-#My Moving Average code, written from scratch!
-# MyMovingAverage <- function(df, n) {
-#   x <- df
-#   y <- rep(NA, length(x))
-#   for (i in seq(n + 1, length(x))) {
-#     y[i] <- mean(x[(i - n):(i - 1)])
-#   }
-#   #return(data.frame(x,y))
-#   return(y)
-# }

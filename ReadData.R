@@ -45,30 +45,18 @@ MyDF[MyDF$WeekNr == 22, ] %>% count()
 ##########
 
 # Outlier removal
-
-
-
-
-
-
 ###############################
 #Verfahren:
 myFeatures <- MyDF
 MyDF <- MyDF %>% 
-    get__Dailydf() %>% 
+#    get__Dailydf() %>% 
     myMA_n(c(2,4,7)) %>% 
     myRegression() %>% 
     myHoltWinter() %>% 
     myARIMA()
 
-df <-MyDF %>%
-  get__Dailydf() %>% 
-  #get__Weeklydf() %>% 
-  myMA_n(c(2,4,7)) %>% 
-  myRegression() %>% 
-  myHoltWinter() %>% 
-  myARIMA()
-  
+df <-MyDF 
+
 df %>%  head()
 df %>% str()
 

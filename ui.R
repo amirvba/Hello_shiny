@@ -9,9 +9,9 @@ shinyUI(fluidPage(
       radioButtons("TimeUnit","Time unit?",
                    choices =  c("Original", "Daily" , "Weekly"),
                    selected = "Daily"),
-      radioButtons("Promotion","Promotion?",
-                   choices =  c("Both", "Within", "Without"),
-                   selected = "Both"),
+#      radioButtons("Promotion","Promotion?",
+#                   choices =  c("Both", "Within", "Without"),
+#                   selected = "Both"),
       radioButtons("DataCleaning","Data Preprocessing",
                    choices =  c("None", "Custome", "ts_clean"),
                    selected = "None"),
@@ -22,16 +22,12 @@ shinyUI(fluidPage(
                            "Holt Winter" = "myHW",
                            "Regression" = "myRegression"))),#,selected = "myMA"
     
-    mainPanel(tabsetPanel(
-      id = 'dataset',
-      
+    mainPanel(tabsetPanel(id = 'dataset',
+                          
       tabPanel("Reg_Forcast", plotOutput("Reg_Forcast")),
       tabPanel('Erros', dataTableOutput('Erros')),
-      tabPanel("Werbungseffekt", plotOutput("LayerdPlot")),
-      #tabPanel("MA_Forcast", plotOutput("MA_Forcast")),
+      tabPanel("Werbungseffekt", plotOutput("Werbungs_Effekt")),
       tabPanel('Data', dataTableOutput('table')),
-      
-      #tabPanel("Plot", plotOutput("plot")),
       tabPanel("Histogram", plotOutput("BoxPlot"))
-      
+
 )))))
