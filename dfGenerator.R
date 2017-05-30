@@ -3,7 +3,6 @@ get__Tag <- function(df) {
     group_by(DayNr) %>%
     summarise(
       Abverkauf = sum(Abverkauf)
-      
     )
   return(Dailydf)
 }
@@ -23,13 +22,23 @@ myHoltWinter <- function(df) {
   return(df)
 }
 
- 
-#haha <- myTsReg(MyDF)
-#MyDF %>% head()
-#haha %>% str()
-
-myRegression <- function(df) {
-  mylm <- lm(Abverkauf~ Datum + DayNr + WeekNr + Werbung, data = df)
+myReg <- function(df, myTimeUnit="Daily") {
+  
+  if(myTimeUnit=="Original"){
+    return(df)
+  }
+  
+  if(myTimeUnit=="Daily"){
+    
+    
+      mylm <- lm(Abverkauf~ Datum + DayNr + WeekNr + Werbung, data = df)
+  }
+  
+  if(myTimeUnit=="Weekly"){
+    mylm <- lm(Abverkauf~  WeekNr + Werbung, data = df)
+  }
+  
+  
   summary(mylm)
   mylm %>% names()
   df$Regression<- mylm$fitted.values
@@ -37,17 +46,25 @@ myRegression <- function(df) {
   return(df)
 }
 
+ myRegression <- function(df){#, myTimeUnit=df$Datum) {
+   mylm <- lm(Abverkauf~ Datum + DayNr + WeekNr + Werbung, data = df)
+   #mylm <- lm(Abverkauf~ myTimeUnit + DayNr + WeekNr + Werbung, data = df)
+   summary(mylm)
+   mylm %>% names()
+   df$Regression<- mylm$fitted.values
+   #accuracy(mylm) %>% print()
+   return(df)
+ }
+
 
 myMA <- function(df,n ) {
-?accuracy  
+
   FittedMA <- c(rep(NA,n)  ,head(rollmean(df$Abverkauf, n),-1))
-  #FittedMA <- c(rep(NA,n)  ,head(rollmean(df()[,2], n),-1))
-  FittedMA %>% head()
-  FittedMA %>% length()
+  #FittedMA %>% head()
+  #FittedMA %>% length()
   df %>% dim()
   df$FittedMA <- FittedMA
   length(names(df))
-  #df %>% head()
   
   names(df)[length(names(df))] <-paste("FittedMA" ,toString(n),sep = "_")
   return(df)
@@ -159,7 +176,6 @@ myDataChanger <- function(df,type1,type2,type3){
     myDayfunction(type3))
 }
 
-
 myCleaner <- function(df, type){
   df <- switch(type,
                None = df,
@@ -168,5 +184,3 @@ myCleaner <- function(df, type){
                #ts_clean = ts(df$Abverkauf,frequency = 30) %>% tsclean(replace.missing = TRUE))
   return(df)
 }
-
-

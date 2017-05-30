@@ -2,18 +2,17 @@ shinyServer(function(input,output){
   myPercent <- 0.9   
   myData <- reactive({MyDF %>% 
           #MyDF[1:(nrow(df) * myPercent),] %>% 
-             myCleaner(input$DataCleaning) %>% 
-#             myWerbungfunction(input$Promotion) %>% 
-             myDayfunction(input$TimeUnit) %>%  
-             myMA_n(c(2,4,7)) %>% 
-             myRegression() %>% 
-             myHoltWinter() %>% 
-             myARIMA()
+            myCleaner(input$DataCleaning) %>% 
+#           myWerbungfunction(input$Promotion) %>% 
+            myDayfunction(input$TimeUnit) %>%  
+            myMA_n(c(2,4,7)) %>% 
+            myHoltWinter() %>% 
+            myARIMA() %>% 
+            myReg(input$TimeUnit)
+            
      })
      
-  
   myTestData <- reactive({test_df <-  df[(nrow(df) * myPercent):nrow(df),] %>% 
-      
       myCleaner(input$DataCleaning) %>% 
       #myWerbungfunction(input$Promotion) %>% 
       myDayfunction(input$TimeUnit) %>%  
@@ -22,8 +21,6 @@ shinyServer(function(input,output){
       myHoltWinter() %>% 
       myARIMA()
   })
-  
-  
   
      myMAPE <- reactive({
        data2 <- myData()
@@ -36,7 +33,7 @@ shinyServer(function(input,output){
      
      output$table <- renderDataTable(myData())
      output$Erros <- renderDataTable(myMAPE())
-
+     
      output$Werbungs_Effekt <- renderPlot({
        data <- myData()
           p <- ggplot(data, aes_string(colnames(data)[1]))
@@ -45,9 +42,22 @@ shinyServer(function(input,output){
           p
      })
      
-     output$BoxPlot <- renderPlot({
+     output$BoxPlot1 <- renderPlot({
        data <- myData()
-       qplot(factor(0),Abverkauf,data=data,geom='boxplot')+ xlab(" ")
+       p <- ggplot(data = data, aes(x = as.factor(DayNr), y = Abverkauf,fill=DayNr)) 
+       p <- p + geom_boxplot()
+       p <- p + scale_x_discrete(name = "Werktag") 
+       p <- p + labs(fill = "Werktag")
+       p
+       
+     })
+     
+     output$BoxPlot2 <- renderPlot({
+       data <- myData()
+       ggplot(data = data, aes(x = as.factor(Werbung), y = Abverkauf,fill=as.factor(Werbung))) +
+         geom_boxplot()+ scale_x_discrete(name = "Werbung")+labs(fill = "Werbung")
+       
+       
      })
      
       output$Reg_Forcast <- renderPlot({

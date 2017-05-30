@@ -11,12 +11,16 @@ MyDF <- MyDF[c(-1, -2)]
 MyDF %>% head()
 MyDF <- MyDF[, c(1, 4, 3, 2)]
 MyDF$Datum <- as.Date(MyDF$Datum, format = "%m/%d/%Y")
+#MyDF$Werbung<- MyDF$Werbung %>% as.factor()
+
+
 MyDF %>% head()
 
 MyDF$PAM <- MyDF$Uhrzeit %>% str_sub(start = -2)
 MyDF$DayNr <- weekdays(as.Date(MyDF$Datum))
 MyDF$WeekNr <- week(ymd(MyDF$Datum))
 MyDF$MonthNr <- month(ymd(MyDF$Datum))
+
 
 MyDF %>% head()
 MyDF %>% str()
@@ -63,11 +67,7 @@ df %>% str()
 p <- ggplot(df, aes_string(colnames(df)[1]))
 p <- p +  geom_line(aes(y = Abverkauf))
 p <- p +  geom_line(aes(y = Regression), color = 'red')
-#p <- p +  geom_line(aes(y = Fitted_Arima), color = 'blue')
-#p <- p +  geom_line(aes(y = Fitted_hw), color = 'yellow')
-#p <- p +  geom_line(aes(y = Fitted_hw), color = 'green')
 p
-
 
 myList_Fitted <- list(df$Regression,df$FittedMA_7,df$Fitted_hw,df$Fitted_Arima)
 
@@ -76,5 +76,17 @@ myList_Fitted <- list(myData$Regression,
                       myData$FittedMA_7,
                       myData$Fitted_hw,
                       myData$Fitted_Arima) %>% 
-  sapply(MAPE ,actual = df$Abverkauf) %>% data.frame()
-names(myList_Fitted)  <- "MAPE"
+ # sapply(MAPE ,actual = df$Abverkauf) %>% data.frame()
+  sapply(accuracy ,x = df$Abverkauf)%>% data.frame()
+myList_Fitted
+#names(myList_Fitted)  <- "MAPE"
+
+#sapply(accuracy ,actual = df$Abverkauf) 
+#accuracy(myData$Regression,MyDF$Abverkauf)
+df <- MyDF %>% get__Dailydf()
+mylm <- lm(Abverkauf~ Datum + DayNr + WeekNr + Werbung, data = df)
+summary(mylm)
+df$Regression<- mylm$fitted.values
+#accuracy(mylm) %>% print()
+#MyDF %>% str()
+#plot(mylm)

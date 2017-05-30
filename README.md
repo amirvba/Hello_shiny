@@ -7,3 +7,7 @@
 # code aftwerwards! These illustrative codes will be commented using double #. Also: ##
 
 # I try to implement all of the methods, which I have learned so far. After that you can interatively see which one has been better! 
+
+# Your data needs to have the following format:
+#  Two columns: 1: Datum   2: Abverkauf 
+# I have hard coded these two column names in my code. Maybe I will change it!
